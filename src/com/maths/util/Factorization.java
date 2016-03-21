@@ -1,6 +1,7 @@
 package com.maths.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.omg.Messaging.SyncScopeHelper;
@@ -31,8 +32,34 @@ public class Factorization {
 		 
 		 return a;
 	}
+	public static List<Integer> getAllPrimes(int upper){
+		int sq = (int)Math.sqrt(upper);
+		boolean[] bool = new boolean[upper+1];
+		Arrays.fill(bool, true);
+		bool[0]=false;bool[1]=false;
+		for(int i=2;i<sq+1;i++){
+			if(isPrime(i)){
+				for(int i1=2*i;i1<=upper;i1+=i)
+					bool[i1]=false;
+			}
+		}
+		List<Integer> list = new ArrayList<Integer>();
+		for(int i=1;i<=upper;i++){
+			if(bool[i])
+				list.add(i);
+		}
+		return list;
+	}
+	private static boolean isPrime(int num) {
+		for(int i=2;i<num;i++)
+			if(num%i==0)
+				return false;
+		return true;
+	}
 	public static void main(String[] args) {
 		//Test
-		System.out.println(gcd(12,42));
+		//System.out.println(gcd(12,42));
+		//System.out.println();
+		System.out.println(getAllPrimes(200000).get(10000));
 	}
 }
